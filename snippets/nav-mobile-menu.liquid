@@ -1,0 +1,45 @@
+<div x-show="openMobi" class="absolute z-10 top-0 inset-x-0 p-2 transform origin-top-left md:hidden">
+    <div class="shadow-lg rounded-lg ring-1 ring-black ring-opacity-5 bg-white w-full">
+        <div class="p-5 divide-y-2 divide-gray-50">
+
+            <!-- MOBILE MENU HEADER TITLE PLUS CLOSE BUTTON -->
+            <div class="flex items-center justify-between pb-3">
+                <div>
+                    <h1 class="text-lg text-gray-500">MENU</h1>
+                </div>
+                <div class="-mr-2">
+                    <div x-on:click="openMobi=false" class="bg-white rounded-md p-2 text-gray-500">
+                        {% render 'icon',name:'close'%}
+                        <span x-show="openMobi">true</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pt-3">
+                <div class="grid gap-y-7">
+                    {% for mobilink in linklists.main-menu.links %}
+                        {% if mobilink.links != blank %}
+                            <div class="relative" x-data="{open:false}">
+                                <div x-on:click="open=!open" class="-m-3 p-3 flex items-center rounded-md text-gray-500 hover:text-gray-900 hover:bg-gray-50">
+                                    {{mobilink.title}} {% render 'icon',name:'chevron-down'%}
+                                </div>
+                                <div x-show="open" @click.away="open=false" class="grid gap-y-7 py-3">
+                                    {% for mobisub in mobilink.links %}
+                                    <a href="{{mobisub.url}}" class="-m-3 p-3 mt-2 flex items-center rounded-md text-gray-500 hover:text-gray-900 hover:bg-gray-50">
+                                        <span class="ml-3 text-base font-medium text-gray-500">{{mobisub.title}}</span>
+                                    </a>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        {% else %}
+                        <a href="#" class="-m-3 p-3 flex items-center rounded-md text-gray-500 hover:text-gray-900 hover:bg-gray-50">
+                            {{ mobilink.title }}
+                        </a>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
