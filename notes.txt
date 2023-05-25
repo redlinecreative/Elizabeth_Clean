@@ -1,0 +1,11 @@
+Login: 
+shopify theme dev --store=https://storename.myshopify.com
+
+Serve Locally (after logging in): 
+shopify theme dev
+
+Tailwind install:
+npm i -D tailwindcss
+
+Tailwind watch:
+npx tailwindcss -i src/tailwind.css -o assets/application.css --watch

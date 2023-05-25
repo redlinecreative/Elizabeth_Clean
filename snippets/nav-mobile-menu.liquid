@@ -1,4 +1,4 @@
-<div x-show="openMobi" class="absolute z-10 top-0 inset-x-0 p-2 transform origin-top-left md:hidden">
+<div x-show="openMobi" @click.away="openMobi=false" class="absolute z-10 top-0 inset-x-0 p-2 transform origin-top-left md:hidden">
     <div class="shadow-lg rounded-lg ring-1 ring-black ring-opacity-5 bg-white w-full">
         <div class="p-5 divide-y-2 divide-gray-50">
 
@@ -8,21 +8,22 @@
                     <h1 class="text-lg text-gray-500">MENU</h1>
                 </div>
                 <div class="-mr-2">
-                    <div x-on:click="openMobi=false" class="bg-white rounded-md p-2 text-gray-500">
+                    <button x-on:click="openMobi=false" type="button" class="bg-white rounded-md p-2 text-gray-500">
                         {% render 'icon',name:'close'%}
-                        <span x-show="openMobi">true</span>
-                    </div>
+                    </button>
                 </div>
             </div>
 
             <div class="pt-3">
                 <div class="grid gap-y-7">
-                    {% for mobilink in linklists.main-menu.links %}
+
+                    {% for mobilink in links %}
                         {% if mobilink.links != blank %}
                             <div class="relative" x-data="{open:false}">
-                                <div x-on:click="open=!open" class="-m-3 p-3 flex items-center rounded-md text-gray-500 hover:text-gray-900 hover:bg-gray-50">
-                                    {{mobilink.title}} {% render 'icon',name:'chevron-down'%}
-                                </div>
+                                <button x-on:click="open=!open" type="button" class="-m-3 p-3 w-full flex justify-between items-center rounded-md text-gray-500 hover:text-gray-900 hover:bg-gray-50">
+                                    <div>{{mobilink.title}}</div>
+                                    {% render 'icon',name:'chevron-down'%}
+                                </button>
                                 <div x-show="open" @click.away="open=false" class="grid gap-y-7 py-3">
                                     {% for mobisub in mobilink.links %}
                                     <a href="{{mobisub.url}}" class="-m-3 p-3 mt-2 flex items-center rounded-md text-gray-500 hover:text-gray-900 hover:bg-gray-50">
@@ -37,6 +38,7 @@
                         </a>
                         {% endif %}
                     {% endfor %}
+                    
                 </div>
             </div>
 
